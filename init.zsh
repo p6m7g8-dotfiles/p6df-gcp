@@ -10,6 +10,7 @@
 p6df::modules::gcp::deps() {
   ModuleDeps=(
     p6m7g8-dotfiles/p6common
+    p6m7g8-dotfiles/p6df-go
   )
 }
 
@@ -42,6 +43,8 @@ p6df::modules::gcp::langs() {
 #
 # Function: p6df::modules::gcp::home::symlink()
 #
+#  Depends:	 p6_file
+#  Environment:	 P6_DFZ_SRC_DIR
 #>
 ######################################################################
 p6df::modules::gcp::home::symlink() {
@@ -55,13 +58,55 @@ p6df::modules::gcp::home::symlink() {
 #
 # Function: p6df::modules::gcp::init()
 #
+#  Depends:	 p6_env
+#  Environment:	 CLOUDSDK_PYTHON
 #>
 ######################################################################
 p6df::modules::gcp::init() {
 
-    export CLOUDSDK_PYTHON="/usr/local/opt/python@3.8/libexec/bin/python"
-    source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-    source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+    p6_env_export CLOUDSDK_PYTHON "/usr/local/opt/python@3.8/libexec/bin/python"
+
+    p6df::modules::gcp::path::init
+    p6df::modules::gcp::completions::init
+    p6df::modules::gcp::prompt::init
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::gcp::prompt::init()
+#
+#>
+######################################################################
+p6df::modules::gcp::prompt::init() {
+
+  p6df::core::prompt::line::add "p6df::modules::gcp::prompt::line"
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::gcp::path::init()
+#
+#  Depends:	 p6_file
+#>
+######################################################################
+p6df::modules::gcp::path::init() {
+
+    p6_file_load "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::gcp::completions::init()
+#
+#  Depends:	 p6_file
+#>
+######################################################################
+p6df::modules::gcp::completions::init() {
+
+    p6_file_load "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 }
 
 ######################################################################
@@ -85,6 +130,8 @@ p6df::modules::gcp::prompt::line() {
 #  Returns:
 #	str - str
 #
+#  Depends:	 p6_file p6_math
+#  Environment:	 HOME
 #>
 ######################################################################
 p6_gcp_prompt_info() {
