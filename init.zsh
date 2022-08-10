@@ -1,5 +1,4 @@
-#####################################################################
-
+# shellcheck shell=bash
 ######################################################################
 #<
 #
@@ -9,7 +8,6 @@
 ######################################################################
 p6df::modules::gcp::deps() {
   ModuleDeps=(
-    p6m7g8-dotfiles/p6common
     p6m7g8-dotfiles/p6df-go
   )
 }
@@ -24,6 +22,8 @@ p6df::modules::gcp::deps() {
 p6df::modules::gcp::external::brew() {
 
   brew install --cask google-cloud-sdk
+
+  p6_return_void
 }
 
 ######################################################################
@@ -36,6 +36,8 @@ p6df::modules::gcp::external::brew() {
 p6df::modules::gcp::langs() {
 
   gcloud components install anthoscli beta
+
+  p6_return_void
 }
 
 ######################################################################
@@ -50,6 +52,8 @@ p6df::modules::gcp::home::symlink() {
 
   p6_file_symlink "$P6_DFZ_SRC_DIR/$USER/home-private/gcloud" ".config/gcloud"
   p6_file_symlink "$P6_DFZ_SRC_DIR/$USER/home-private/gsutil" ".gsutil"
+
+  p6_return_void
 }
 
 ######################################################################
@@ -57,7 +61,6 @@ p6df::modules::gcp::home::symlink() {
 #
 # Function: p6df::modules::gcp::init()
 #
-#  Environment:	 CLOUDSDK_PYTHON
 #>
 ######################################################################
 p6df::modules::gcp::init() {
@@ -65,6 +68,8 @@ p6df::modules::gcp::init() {
   p6df::modules::gcp::path::init
   p6df::modules::gcp::completions::init
   p6df::modules::gcp::prompt::init
+
+  p6_return_void
 }
 
 ######################################################################
@@ -84,6 +89,7 @@ p6df::modules::gcp::prompt::init() {
 #
 # Function: p6df::modules::gcp::path::init()
 #
+#  Environment:	 HOMEBREW_PREFIX
 #>
 ######################################################################
 p6df::modules::gcp::path::init() {
@@ -96,6 +102,7 @@ p6df::modules::gcp::path::init() {
 #
 # Function: p6df::modules::gcp::completions::init()
 #
+#  Environment:	 HOMEBREW_PREFIX
 #>
 ######################################################################
 p6df::modules::gcp::completions::init() {
