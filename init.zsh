@@ -66,22 +66,8 @@ p6df::modules::gcp::home::symlink() {
 p6df::modules::gcp::init() {
 
   p6df::modules::gcp::path::init
-  p6df::modules::gcp::completions::init
-  p6df::modules::gcp::prompt::init
 
   p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::gcp::prompt::init()
-#
-#>
-######################################################################
-p6df::modules::gcp::prompt::init() {
-
-  p6df::core::prompt::line::add "p6df::modules::gcp::prompt::line"
 }
 
 ######################################################################
@@ -113,20 +99,7 @@ p6df::modules::gcp::completions::init() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::gcp::prompt::line()
-#
-#>
-######################################################################
-p6df::modules::gcp::prompt::line() {
-
-  p6_gcp_prompt_info
-}
-
-## XXX: move to p6gcp
-######################################################################
-#<
-#
-# Function: str str = p6_gcp_prompt_info()
+# Function: str str = p6df::modules::gcp::prompt::line()
 #
 #  Returns:
 #	str - str
@@ -134,7 +107,7 @@ p6df::modules::gcp::prompt::line() {
 #  Environment:	 HOME
 #>
 ######################################################################
-p6_gcp_prompt_info() {
+p6df::modules::gcp::prompt::line() {
 
   local str
   if p6_file_exists "$HOME/.config/gcloud/configurations/config_default"; then
