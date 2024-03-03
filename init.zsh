@@ -128,7 +128,7 @@ p6df::modules::gcp::prompt::line() {
         sts="sts:$diff"
       fi
 
-      str="gcp:      _active:[$project - $account] [] () ($sts)"
+      str="gcp:\t\t  _active:[$project - $account] [] () ($sts)"
     fi
   fi
 
