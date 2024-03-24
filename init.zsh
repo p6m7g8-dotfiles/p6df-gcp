@@ -21,7 +21,7 @@ p6df::modules::gcp::deps() {
 ######################################################################
 p6df::modules::gcp::external::brew() {
 
-  brew install --cask google-cloud-sdk
+  p6df::modules::homebrew::cli::brew::install --cask google-cloud-sdk
 
   p6_return_void
 }
@@ -59,12 +59,18 @@ p6df::modules::gcp::home::symlink() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::gcp::init()
+# Function: p6df::modules::gcp::init(_module, dir)
+#
+#  Args:
+#	_module -
+#	dir -
 #
 #>
 ######################################################################
 p6df::modules::gcp::init() {
-
+  local _module="$1"
+  local dir="$2"
+  
   p6df::modules::gcp::path::init
 
   p6_return_void

@@ -10,8 +10,7 @@
   - [Summary](#summary)
   - [Contributing](#contributing)
   - [Code of Conduct](#code-of-conduct)
-  - [Changes](#changes)
-    - [Usage](#usage)
+  - [Usage](#usage)
   - [Author](#author)
 
 ### Badges
@@ -34,11 +33,13 @@
 
 - [Code of Conduct](https://github.com/p6m7g8/.github/blob/master/CODE_OF_CONDUCT.md)
 
-## Changes
-
-- [Change Log](CHANGELOG.md)
-
 ## Usage
+
+
+### Aliases
+
+
+### Functions
 
 ### p6df-gcp:
 
@@ -48,7 +49,7 @@
 - p6df::modules::gcp::deps()
 - p6df::modules::gcp::external::brew()
 - p6df::modules::gcp::home::symlink()
-- p6df::modules::gcp::init()
+- p6df::modules::gcp::init(_module, dir)
 - p6df::modules::gcp::langs()
 - p6df::modules::gcp::path::init()
 - str str = p6df::modules::gcp::prompt::line()
