@@ -70,7 +70,7 @@ p6df::modules::gcp::home::symlink() {
 p6df::modules::gcp::init() {
   local _module="$1"
   local dir="$2"
-  
+
   p6df::modules::gcp::path::init
 
   p6_return_void
@@ -117,8 +117,8 @@ p6df::modules::gcp::prompt::line() {
 
   local str
   if p6_file_exists "$HOME/.config/gcloud/configurations/config_default"; then
-    local mtime=$(p6_dt_mtime "$HOME/.config/gcloud/configurations/config_default")
-    local now=$(p6_dt_now_epoch_seconds)
+    local mtime=$(p6_file_mtime "$HOME/.config/gcloud/configurations/config_default")
+    local now=$(p6_date_point_now_epoch_seconds)
     local diff=$(p6_math_sub "$now" "$mtime")
 
     if ! p6_math_gt "$diff" "2700"; then
