@@ -86,7 +86,10 @@ p6df::modules::gcp::init() {
 ######################################################################
 p6df::modules::gcp::path::init() {
 
-  p6_file_load "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+  local path="$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+  if p6_file_exists "$path"; then
+    p6_file_load "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+  fi
 }
 
 ######################################################################
