@@ -108,7 +108,7 @@ p6df::modules::gcp::completions::init() {
 ######################################################################
 #<
 #
-# Function: str str = p6df::modules::gcp::prompt::line()
+# Function: str str = p6df::modules::gcp::prompt::mod()
 #
 #  Returns:
 #	str - str
@@ -116,7 +116,7 @@ p6df::modules::gcp::completions::init() {
 #  Environment:	 HOME
 #>
 ######################################################################
-p6df::modules::gcp::prompt::line() {
+p6df::modules::gcp::prompt::mod() {
 
   local str
   if p6_file_exists "$HOME/.config/gcloud/configurations/config_default"; then
