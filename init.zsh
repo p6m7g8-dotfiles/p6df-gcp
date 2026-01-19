@@ -45,7 +45,7 @@ p6df::modules::gcp::langs() {
 #
 # Function: p6df::modules::gcp::home::symlink()
 #
-#  Environment:	 P6_DFZ_SRC_DIR
+#  Environment:	 P6_DFZ_SRC_DIR USER
 #>
 ######################################################################
 p6df::modules::gcp::home::symlink() {
