@@ -59,26 +59,6 @@ p6df::modules::gcp::home::symlink() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::gcp::init(_module, dir)
-#
-#  Args:
-#	_module -
-#	dir -
-#
-#>
-######################################################################
-p6df::modules::gcp::init() {
-  local _module="$1"
-  local dir="$2"
-
-  p6df::modules::gcp::path::init
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
 # Function: p6df::modules::gcp::path::init()
 #
 #  Environment:	 HOMEBREW_PREFIX
