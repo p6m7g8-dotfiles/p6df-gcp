@@ -125,8 +125,8 @@ p6df::modules::gcp::prompt::mod() {
     local diff=$(p6_math_sub "$now" "$mtime")
 
     if ! p6_math_gt "$diff" "2700"; then
-      local account=$(awk -F= '/account/ { print $2 }' <$HOME/.config/gcloud/configurations/config_default | sed -e 's, *,,g')
-      local project=$(awk -F= '/project/ { print $2 }' <$HOME/.config/gcloud/configurations/config_default | sed -e 's, *,,g')
+      local account=$(awk -F= '/account/ { print $2 }' <"$HOME"/.config/gcloud/configurations/config_default | sed -e 's, *,,g')
+      local project=$(awk -F= '/project/ { print $2 }' <"$HOME"/.config/gcloud/configurations/config_default | sed -e 's, *,,g')
 
       local sts
       if p6_math_gt "$diff" "2400"; then
