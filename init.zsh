@@ -21,7 +21,7 @@ p6df::modules::gcp::deps() {
 ######################################################################
 p6df::modules::gcp::external::brew() {
 
-  p6df::modules::homebrew::cli::brew::install --cask google-cloud-sdk
+  p6df::core::homebrew::cli::brew::install --cask google-cloud-sdk
 
   p6_return_void
 }
