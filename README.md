@@ -35,6 +35,7 @@ TODO: Add a short summary of this module.
 
 ##### p6df-gcp/init.zsh
 
+- `p6df::modules::gcp::aliases::init()`
 - `p6df::modules::gcp::completions::init()`
 - `p6df::modules::gcp::deps()`
 - `p6df::modules::gcp::external::brew()`
@@ -43,14 +44,31 @@ TODO: Add a short summary of this module.
 - `p6df::modules::gcp::path::init()`
 - `str str = p6df::modules::gcp::prompt::mod()`
 
+#### p6df-gcp/bin
+
+##### p6df-gcp/bin/gws-docs-query
+
+- `gws-docs-query [options] <search text>`
+
+#### p6df-gcp/lib
+
+##### p6df-gcp/lib/gws-docs-query.sh
+
+- `p6df::modules::gcp::gws_docs_query::usage()`
+- `p6df::modules::gcp::gws_docs_query::main()`
+
 ## Hierarchy
 
 ```text
 .
+├── bin
+│   └── gws-docs-query
 ├── init.zsh
+├── lib
+│   └── gws-docs-query.sh
 └── README.md
 
-1 directory, 2 files
+3 directories, 4 files
 ```
 
 ## Author

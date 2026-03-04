@@ -88,6 +88,21 @@ p6df::modules::gcp::completions::init() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::gcp::aliases::init()
+#
+#  Environment:	 P6_DFZ_SRC_DIR
+#>
+######################################################################
+p6df::modules::gcp::aliases::init() {
+
+  p6_alias "gws-docs-query" "$P6_DFZ_SRC_DIR/p6m7g8-dotfiles/p6df-gcp/bin/gws-docs-query"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
 # Function: str str = p6df::modules::gcp::prompt::mod()
 #
 #  Returns:
