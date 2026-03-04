@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
 p6df::modules::gcp::gws_docs_query::usage() {
   cat <<'USAGE'
