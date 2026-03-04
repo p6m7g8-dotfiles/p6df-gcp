@@ -35,7 +35,6 @@ TODO: Add a short summary of this module.
 
 ##### p6df-gcp/init.zsh
 
-- `p6df::modules::gcp::aliases::init()`
 - `p6df::modules::gcp::completions::init()`
 - `p6df::modules::gcp::deps()`
 - `p6df::modules::gcp::external::brew()`
