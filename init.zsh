@@ -15,6 +15,26 @@ p6df::modules::gcp::deps() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::gcp::init(_module, dir)
+#
+#  Args:
+#	_module -
+#	dir -
+#
+#>
+######################################################################
+p6df::modules::gcp::init() {
+  local _module="$1"
+  local dir="$2"
+
+  p6_bootstrap "$dir"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
 # Function: p6df::modules::gcp::external::brew()
 #
 #>
@@ -83,21 +103,6 @@ p6df::modules::gcp::path::init() {
 p6df::modules::gcp::completions::init() {
 
   p6_file_load "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::gcp::aliases::init()
-#
-#  Environment:	 P6_DFZ_SRC_DIR
-#>
-######################################################################
-p6df::modules::gcp::aliases::init() {
-
-  p6_alias "gws-docs-query" "$P6_DFZ_SRC_DIR/p6m7g8-dotfiles/p6df-gcp/bin/gws-docs-query"
-
-  p6_return_void
 }
 
 ######################################################################
