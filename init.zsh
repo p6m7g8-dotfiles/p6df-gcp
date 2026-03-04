@@ -15,6 +15,26 @@ p6df::modules::gcp::deps() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::gcp::init(_module, dir)
+#
+#  Args:
+#	_module -
+#	dir -
+#
+#>
+######################################################################
+p6df::modules::gcp::init() {
+  local _module="$1"
+  local dir="$2"
+
+  p6_bootstrap "$dir"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
 # Function: p6df::modules::gcp::external::brew()
 #
 #>
