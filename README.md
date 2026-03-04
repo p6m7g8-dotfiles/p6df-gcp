@@ -39,7 +39,6 @@ TODO: Add a short summary of this module.
 - `p6df::modules::gcp::deps()`
 - `p6df::modules::gcp::external::brew()`
 - `p6df::modules::gcp::home::symlink()`
-- `p6df::modules::gcp::init(_module, dir)`
 - `p6df::modules::gcp::langs()`
 - `p6df::modules::gcp::path::init()`
 - `str str = p6df::modules::gcp::prompt::mod()`
