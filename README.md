@@ -17,7 +17,9 @@
 
 ## Summary
 
-TODO: Add a short summary of this module.
+p6df module for Google Cloud Platform: `gcloud` SDK, Google Workspace CLI,
+prompt integration, and MCP server (`mcp-toolbox` via brew, Google's official
+GenAI Toolbox for databases: BigQuery, Cloud SQL, Spanner).
 
 ## Contributing
 
@@ -40,22 +42,24 @@ TODO: Add a short summary of this module.
 - `p6df::modules::gcp::external::brew()`
 - `p6df::modules::gcp::home::symlink()`
 - `p6df::modules::gcp::init(_module, dir)`
+  - Args:
+    - _module
+    - dir
 - `p6df::modules::gcp::langs()`
+- `p6df::modules::gcp::mcp()`
 - `p6df::modules::gcp::path::init()`
 - `str str = p6df::modules::gcp::prompt::mod()`
-
-#### p6df-gcp/bin
-
-##### p6df-gcp/bin/gws-docs-query
-
-- `gws-docs-query [options] <search text>`
 
 #### p6df-gcp/lib
 
 ##### p6df-gcp/lib/gws-docs-query.sh
 
+- `p6df::modules::gcp::gws_docs_query::main(limit, owner, ...)`
+  - Args:
+    - limit
+    - owner
+    - ...
 - `p6df::modules::gcp::gws_docs_query::usage()`
-- `p6df::modules::gcp::gws_docs_query::main()`
 
 ## Hierarchy
 
