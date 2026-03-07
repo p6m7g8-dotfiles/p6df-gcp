@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# Thin CLI shim: delegate all behavior to the shared library implementation.
-. "$script_dir/../lib/gws-docs-query.sh"
-
-p6df::modules::gcp::gws_docs_query::main "$@"
