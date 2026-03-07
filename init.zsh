@@ -9,6 +9,7 @@
 p6df::modules::gcp::deps() {
   ModuleDeps=(
     p6m7g8-dotfiles/p6df-go
+    p6m7g8-dotfiles/p6df-js
   )
 }
 
@@ -42,6 +43,7 @@ p6df::modules::gcp::init() {
 p6df::modules::gcp::external::brew() {
 
   p6df::core::homebrew::cli::brew::install --cask google-cloud-sdk
+  p6_js_npm_global_install "@googleworkspace/cli"
 
   p6_return_void
 }
@@ -149,3 +151,17 @@ p6df::modules::gcp::prompt::mod() {
 # gcloud projects list
 # gcloud projects describe p6m7g8
 # gcloud configure-docker # Docker credential helper
+
+######################################################################
+#<
+#
+# Function: p6df::modules::gcp::mcp()
+#
+#>
+######################################################################
+p6df::modules::gcp::mcp() {
+
+  p6df::core::homebrew::cli::brew::install mcp-toolbox
+
+  p6_return_void
+}
