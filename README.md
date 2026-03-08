@@ -17,9 +17,9 @@
 
 ## Summary
 
-p6df module for Google Cloud Platform: `gcloud` SDK, Google Workspace CLI,
-prompt integration, and MCP server (`mcp-toolbox` via brew, Google's official
-GenAI Toolbox for databases: BigQuery, Cloud SQL, Spanner).
+p6df module for Google Cloud Platform: gcloud CLI, profile switching,
+MCP toolbox (`mcp-toolbox` via brew), and Google Drive MCP (HTTP endpoint)
+for AI-driven GCP and Drive operations.
 
 ## Contributing
 

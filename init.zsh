@@ -163,5 +163,7 @@ p6df::modules::gcp::mcp() {
 
   p6df::core::homebrew::cli::brew::install mcp-toolbox
 
+  # google-drive MCP: HTTP endpoint https://mcp.google.com (no install needed)
+
   p6_return_void
 }
