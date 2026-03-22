@@ -43,7 +43,7 @@ p6df::modules::gcp::init() {
 p6df::modules::gcp::external::brew() {
 
   p6df::core::homebrew::cli::brew::install --cask google-cloud-sdk
-  p6_js_npm_global_install "@googleworkspace/cli"
+  p6df::core::homebrew::cli::brew::install oauth2l
 
   p6_return_void
 }
@@ -65,22 +65,6 @@ p6df::modules::gcp::langs() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::gcp::home::symlink()
-#
-#  Environment:	 P6_DFZ_SRC_DIR USER
-#>
-######################################################################
-p6df::modules::gcp::home::symlink() {
-
-  p6_file_symlink "$P6_DFZ_SRC_DIR/$USER/home-private/gcloud" ".config/gcloud"
-  p6_file_symlink "$P6_DFZ_SRC_DIR/$USER/home-private/gsutil" ".gsutil"
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
 # Function: p6df::modules::gcp::path::init()
 #
 #  Environment:	 HOMEBREW_PREFIX
@@ -88,69 +72,63 @@ p6df::modules::gcp::home::symlink() {
 ######################################################################
 p6df::modules::gcp::path::init() {
 
-  local path="$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-  if p6_file_exists "$path"; then
-    p6_file_load "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-  fi
+  p6_file_load "$HOMEBREW_PREFIX/share/google-cloud-sdk/bin"
+
+  p6_return_void
 }
 
 ######################################################################
 #<
 #
-# Function: p6df::modules::gcp::completions::init()
-#
-#  Environment:	 HOMEBREW_PREFIX
-#>
-######################################################################
-p6df::modules::gcp::completions::init() {
-
-  p6_file_load "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
-}
-
-######################################################################
-#<
-#
-# Function: str str = p6df::modules::gcp::prompt::mod()
+# Function: str config = p6df::modules::gcp::prompt::mod()
 #
 #  Returns:
-#	str - str
+#	str - config
+#	str - 
+#	str - gcp:\t\t  [${account}${project:+|$project}${quota_str}${age_str}]
 #
 #  Environment:	 HOME
 #>
 ######################################################################
 p6df::modules::gcp::prompt::mod() {
 
-  local str
-  if p6_file_exists "$HOME/.config/gcloud/configurations/config_default"; then
-    local mtime=$(p6_file_mtime "$HOME/.config/gcloud/configurations/config_default")
-    local now=$(p6_date_point_now_epoch_seconds)
-    local diff=$(p6_math_sub "$now" "$mtime")
+  local config="$HOME/.config/gcloud/configurations/config_default"
+  p6_file_exists "$config" || { p6_return_str ""; return; }
 
-    if ! p6_math_gt "$diff" "2700"; then
-      local account=$(p6_file_display "$HOME"/.config/gcloud/configurations/config_default | p6_filter_kv_value account "=")
-      local project=$(p6_file_display "$HOME"/.config/gcloud/configurations/config_default | p6_filter_kv_value project "=")
+  # Read file once — parse all keys in a single pass
+  local account project quota_project
+  while IFS=' = ' read -r key value _; do
+    case $key in
+      account)       account=$value ;;
+      project)       project=$value ;;
+      quota_project) quota_project=$value ;;
+    esac
+  done < "$config"
 
-      local sts
-      if p6_math_gt "$diff" "2400"; then
-        sts=$(p6_color_ize "red" "black" "sts:\t$diff")
-      elif p6_math_gt "$diff" "2100"; then
-        sts=$(p6_color_ize "yellow" "black" "sts:\t$diff")
-      else
-        sts="sts:$diff"
-      fi
+  [[ -z $account ]] && { p6_return_str ""; return; }
 
-      str="gcp:\t\t  _active:[$project - $account] [] () ($sts)"
+  # Abbreviate account to username only
+  account="${account%%@*}"
+
+  # Only show quota when set and differs from project
+  local quota_str=""
+  [[ -n $quota_project && $quota_project != "$project" ]] && quota_str="|q:$quota_project"
+
+  # Use zsh builtins for mtime — no subshells
+  zmodload -F zsh/stat b:zstat 2>/dev/null
+  local -A fstat
+  local age_str=""
+  if zstat -H fstat "$config" 2>/dev/null; then
+    local diff=$(( EPOCHSECONDS - fstat[mtime] ))
+    if (( diff > 2400 )); then
+      age_str="|$(p6_color_ize "red" "black" "${diff}s")"
+    elif (( diff > 2100 )); then
+      age_str="|$(p6_color_ize "yellow" "black" "${diff}s")"
     fi
   fi
 
-  p6_return_str "$str"
+  p6_return_str "gcp:\t\t  [${account}${project:+|$project}${quota_str}${age_str}]"
 }
-
-# gcloud auth login
-# gcloud config set project PROJECT_ID
-# gcloud projects list
-# gcloud projects describe p6m7g8
-# gcloud configure-docker # Docker credential helper
 
 ######################################################################
 #<
@@ -161,9 +139,10 @@ p6df::modules::gcp::prompt::mod() {
 ######################################################################
 p6df::modules::gcp::mcp() {
 
+  # Workspace APIs (Drive, Gmail, Calendar, Sheets, Docs, Chat, etc.) are
+  # covered by the gws CLI — no MCP server needed for those.
+  # mcp-toolbox is only needed for Cloud SQL / AlloyDB / Spanner tooling.
   p6df::core::homebrew::cli::brew::install mcp-toolbox
-
-  # google-drive MCP: HTTP endpoint https://mcp.google.com (no install needed)
 
   p6_return_void
 }
