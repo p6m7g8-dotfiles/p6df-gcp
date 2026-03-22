@@ -93,7 +93,7 @@ p6df::modules::gcp::path::init() {
 p6df::modules::gcp::prompt::mod() {
 
   local config="$HOME/.config/gcloud/configurations/config_default"
-  p6_file_exists "$config" || { p6_return_str ""; return }
+  p6_file_exists "$config" || { p6_return_str ""; return; }
 
   # Read file once — parse all keys in a single pass
   local account project quota_project
@@ -105,7 +105,7 @@ p6df::modules::gcp::prompt::mod() {
     esac
   done < "$config"
 
-  [[ -z $account ]] && { p6_return_str ""; return }
+  [[ -z $account ]] && { p6_return_str ""; return; }
 
   # Abbreviate account to username only
   account="${account%%@*}"
