@@ -66,7 +66,7 @@ p6df::modules::gcp::config::quota_project::get() {
 p6df::modules::gcp::config::quota_project::set() {
   local project_id="${1:?requires project ID}"
 
-  gcloud auth application-default set-quota-project "${project_id}"
+  gcloud config set billing/quota_project "${project_id}"
 
   p6_return_void
 }
