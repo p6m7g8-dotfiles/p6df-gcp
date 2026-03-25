@@ -127,7 +127,7 @@ p6df::modules::gcp::prompt::mod() {
     fi
   fi
 
-  p6_return_str "gcp:\t\t  [${account}${project:+|$project}${quota_str}${age_str}]"
+  p6_return_str "gcp:\t\t  ${account}${project:+|$project}${quota_str}${age_str}"
 }
 
 ######################################################################
