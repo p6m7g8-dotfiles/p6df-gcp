@@ -36,11 +36,11 @@ p6df::modules::gcp::init() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::gcp::external::brew()
+# Function: p6df::modules::gcp::external::brews()
 #
 #>
 ######################################################################
-p6df::modules::gcp::external::brew() {
+p6df::modules::gcp::external::brews() {
 
   p6df::core::homebrew::cli::brew::install --cask google-cloud-sdk
   p6df::core::homebrew::cli::brew::install oauth2l
