@@ -144,5 +144,8 @@ p6df::modules::gcp::mcp() {
   # mcp-toolbox is only needed for Cloud SQL / AlloyDB / Spanner tooling.
   p6df::core::homebrew::cli::brew::install mcp-toolbox
 
+  p6df::modules::anthropic::mcp::server::add "gcp" "mcp-toolbox"
+  p6df::modules::openai::mcp::server::add "gcp" "mcp-toolbox"
+
   p6_return_void
 }
