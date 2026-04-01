@@ -16,26 +16,6 @@ p6df::modules::gcp::deps() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::gcp::init(_module, dir)
-#
-#  Args:
-#	_module -
-#	dir -
-#
-#>
-######################################################################
-p6df::modules::gcp::init() {
-  local _module="$1"
-  local dir="$2"
-
-  p6_bootstrap "$dir"
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
 # Function: p6df::modules::gcp::external::brews()
 #
 #>
@@ -72,6 +52,8 @@ p6df::modules::gcp::langs() {
 ######################################################################
 p6df::modules::gcp::path::init() {
 
+  local _module="$1"
+  local _dir="$2"
   p6_file_load "$HOMEBREW_PREFIX/share/google-cloud-sdk/bin"
 
   p6_return_void
@@ -80,17 +62,17 @@ p6df::modules::gcp::path::init() {
 ######################################################################
 #<
 #
-# Function: str config = p6df::modules::gcp::prompt::mod()
+# Function: str config = p6df::modules::gcp::prompt::context()
 #
 #  Returns:
 #	str - config
 #	str - 
-#	str - gcp:\t\t  [${account}${project:+|$project}${quota_str}${age_str}]
+#	str - $(p6_string_space_pad "gcp:" 16)${account}${project:+|$project}${quota_str}${age_str}
 #
 #  Environment:	 HOME
 #>
 ######################################################################
-p6df::modules::gcp::prompt::mod() {
+p6df::modules::gcp::prompt::context() {
 
   local config="$HOME/.config/gcloud/configurations/config_default"
   p6_file_exists "$config" || { p6_return_str ""; return; }
@@ -127,7 +109,7 @@ p6df::modules::gcp::prompt::mod() {
     fi
   fi
 
-  p6_return_str "gcp:\t\t  ${account}${project:+|$project}${quota_str}${age_str}"
+  p6_return_str "$(p6_string_space_pad "gcp:" 16)${account}${project:+|$project}${quota_str}${age_str}"
 }
 
 ######################################################################
