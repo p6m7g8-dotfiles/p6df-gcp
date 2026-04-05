@@ -16,7 +16,11 @@ p6df::modules::gcp::deps() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::gcp::path::init()
+# Function: p6df::modules::gcp::path::init(_module, _dir)
+#
+#  Args:
+#	_module -
+#	_dir -
 #
 #  Environment:	 HOMEBREW_PREFIX
 #>
@@ -86,7 +90,7 @@ p6df::modules::gcp::mcp() {
 #  Returns:
 #	str - config
 #	str - 
-#	str - $(p6_string_space_pad "gcp:" 16)${account}${project:+|$project}${quota_str}${age_str}
+#	str - (p6_string_space_pad 
 #
 #  Environment:	 HOME
 #>
