@@ -16,6 +16,23 @@ p6df::modules::gcp::deps() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::gcp::path::init()
+#
+#  Environment:	 HOMEBREW_PREFIX
+#>
+######################################################################
+p6df::modules::gcp::path::init() {
+
+  local _module="$1"
+  local _dir="$2"
+  p6_file_load "$HOMEBREW_PREFIX/share/google-cloud-sdk/bin"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
 # Function: p6df::modules::gcp::external::brews()
 #
 #>
@@ -45,20 +62,22 @@ p6df::modules::gcp::langs() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::gcp::path::init()
+# Function: p6df::modules::gcp::mcp()
 #
-#  Environment:	 HOMEBREW_PREFIX
 #>
 ######################################################################
-p6df::modules::gcp::path::init() {
+p6df::modules::gcp::mcp() {
 
-  local _module="$1"
-  local _dir="$2"
-  p6_file_load "$HOMEBREW_PREFIX/share/google-cloud-sdk/bin"
+  # Workspace APIs (Drive, Gmail, Calendar, Sheets, Docs, Chat, etc.) are
+  # covered by the gws CLI — no MCP server needed for those.
+  # mcp-toolbox is only needed for Cloud SQL / AlloyDB / Spanner tooling.
+  p6df::core::homebrew::cli::brew::install mcp-toolbox
+
+  p6df::modules::anthropic::mcp::server::add "gcp" "mcp-toolbox"
+  p6df::modules::openai::mcp::server::add "gcp" "mcp-toolbox"
 
   p6_return_void
 }
-
 ######################################################################
 #<
 #
@@ -112,22 +131,3 @@ p6df::modules::gcp::prompt::context() {
   p6_return_str "$(p6_string_space_pad "gcp:" 16)${account}${project:+|$project}${quota_str}${age_str}"
 }
 
-######################################################################
-#<
-#
-# Function: p6df::modules::gcp::mcp()
-#
-#>
-######################################################################
-p6df::modules::gcp::mcp() {
-
-  # Workspace APIs (Drive, Gmail, Calendar, Sheets, Docs, Chat, etc.) are
-  # covered by the gws CLI — no MCP server needed for those.
-  # mcp-toolbox is only needed for Cloud SQL / AlloyDB / Spanner tooling.
-  p6df::core::homebrew::cli::brew::install mcp-toolbox
-
-  p6df::modules::anthropic::mcp::server::add "gcp" "mcp-toolbox"
-  p6df::modules::openai::mcp::server::add "gcp" "mcp-toolbox"
-
-  p6_return_void
-}
