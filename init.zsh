@@ -1,5 +1,11 @@
 # shellcheck shell=bash
 ######################################################################
+#<
+#
+# Function: p6df::modules::gcp::deps()
+#
+#>
+######################################################################
 p6df::modules::gcp::deps() {
   ModuleDeps=(
     p6m7g8-dotfiles/p6df-go
@@ -7,6 +13,13 @@ p6df::modules::gcp::deps() {
   )
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::gcp::path::init()
+#
+#  Environment:	 HOMEBREW_PREFIX
+#>
 ######################################################################
 p6df::modules::gcp::path::init() {
 
@@ -18,6 +31,12 @@ p6df::modules::gcp::path::init() {
 }
 
 ######################################################################
+#<
+#
+# Function: p6df::modules::gcp::external::brews()
+#
+#>
+######################################################################
 p6df::modules::gcp::external::brews() {
 
   p6df::core::homebrew::cli::brew::install --cask google-cloud-sdk
@@ -27,6 +46,12 @@ p6df::modules::gcp::external::brews() {
 }
 
 ######################################################################
+#<
+#
+# Function: p6df::modules::gcp::langs()
+#
+#>
+######################################################################
 p6df::modules::gcp::langs() {
 
   gcloud components install anthoscli beta
@@ -34,6 +59,12 @@ p6df::modules::gcp::langs() {
   p6_return_void
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::gcp::mcp()
+#
+#>
 ######################################################################
 p6df::modules::gcp::mcp() {
 
@@ -47,31 +78,6 @@ p6df::modules::gcp::mcp() {
 
   p6_return_void
 }
-######################################################################
-#<
-#
-# Function: p6df::modules::gcp::deps()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::gcp::external::brews()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::gcp::langs()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::gcp::path::init()
-#
-#  Environment:	 HOMEBREW_PREFIX
-#>
 ######################################################################
 #<
 #
@@ -125,9 +131,3 @@ p6df::modules::gcp::prompt::context() {
   p6_return_str "$(p6_string_space_pad "gcp:" 16)${account}${project:+|$project}${quota_str}${age_str}"
 }
 
-######################################################################
-#<
-#
-# Function: p6df::modules::gcp::mcp()
-#
-#>
