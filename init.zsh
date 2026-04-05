@@ -1,11 +1,5 @@
 # shellcheck shell=bash
 ######################################################################
-#<
-#
-# Function: p6df::modules::gcp::deps()
-#
-#>
-######################################################################
 p6df::modules::gcp::deps() {
   ModuleDeps=(
     p6m7g8-dotfiles/p6df-go
@@ -13,42 +7,6 @@ p6df::modules::gcp::deps() {
   )
 }
 
-######################################################################
-#<
-#
-# Function: p6df::modules::gcp::external::brews()
-#
-#>
-######################################################################
-p6df::modules::gcp::external::brews() {
-
-  p6df::core::homebrew::cli::brew::install --cask google-cloud-sdk
-  p6df::core::homebrew::cli::brew::install oauth2l
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::gcp::langs()
-#
-#>
-######################################################################
-p6df::modules::gcp::langs() {
-
-  gcloud components install anthoscli beta
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::gcp::path::init()
-#
-#  Environment:	 HOMEBREW_PREFIX
-#>
 ######################################################################
 p6df::modules::gcp::path::init() {
 
@@ -59,6 +17,61 @@ p6df::modules::gcp::path::init() {
   p6_return_void
 }
 
+######################################################################
+p6df::modules::gcp::external::brews() {
+
+  p6df::core::homebrew::cli::brew::install --cask google-cloud-sdk
+  p6df::core::homebrew::cli::brew::install oauth2l
+
+  p6_return_void
+}
+
+######################################################################
+p6df::modules::gcp::langs() {
+
+  gcloud components install anthoscli beta
+
+  p6_return_void
+}
+
+######################################################################
+p6df::modules::gcp::mcp() {
+
+  # Workspace APIs (Drive, Gmail, Calendar, Sheets, Docs, Chat, etc.) are
+  # covered by the gws CLI — no MCP server needed for those.
+  # mcp-toolbox is only needed for Cloud SQL / AlloyDB / Spanner tooling.
+  p6df::core::homebrew::cli::brew::install mcp-toolbox
+
+  p6df::modules::anthropic::mcp::server::add "gcp" "mcp-toolbox"
+  p6df::modules::openai::mcp::server::add "gcp" "mcp-toolbox"
+
+  p6_return_void
+}
+######################################################################
+#<
+#
+# Function: p6df::modules::gcp::deps()
+#
+#>
+######################################################################
+#<
+#
+# Function: p6df::modules::gcp::external::brews()
+#
+#>
+######################################################################
+#<
+#
+# Function: p6df::modules::gcp::langs()
+#
+#>
+######################################################################
+#<
+#
+# Function: p6df::modules::gcp::path::init()
+#
+#  Environment:	 HOMEBREW_PREFIX
+#>
 ######################################################################
 #<
 #
@@ -118,16 +131,3 @@ p6df::modules::gcp::prompt::context() {
 # Function: p6df::modules::gcp::mcp()
 #
 #>
-######################################################################
-p6df::modules::gcp::mcp() {
-
-  # Workspace APIs (Drive, Gmail, Calendar, Sheets, Docs, Chat, etc.) are
-  # covered by the gws CLI — no MCP server needed for those.
-  # mcp-toolbox is only needed for Cloud SQL / AlloyDB / Spanner tooling.
-  p6df::core::homebrew::cli::brew::install mcp-toolbox
-
-  p6df::modules::anthropic::mcp::server::add "gcp" "mcp-toolbox"
-  p6df::modules::openai::mcp::server::add "gcp" "mcp-toolbox"
-
-  p6_return_void
-}
